@@ -1,2 +1,4 @@
 __pycache__/
 site.db
+flasksite/static/profile_pics/*
+!flasksite/static/profile_pics/default.jpg
