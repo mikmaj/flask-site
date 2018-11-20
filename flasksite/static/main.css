@@ -13,8 +13,23 @@ h6 {
   color: #444444;
 }
 
-.bg-steel {
-  background-color: #5f788a;
+.synter {
+  font-family: 'VT323', monospace !important;
+  font-size: 1.4em;
+}
+
+.pagination-purple {
+  background-color: #5f638a;
+  border-color: #5f638a;
+}
+
+.pagination-purple-outline {
+  border-color: #5f638a;
+  color: #5f638a;
+}
+
+.bg-purple {
+  background-color: #5f638a;
 }
 
 .site-header .navbar-nav .nav-link {
