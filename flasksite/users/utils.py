@@ -5,6 +5,9 @@ from flask import url_for, current_app
 from flask_mail import Message
 from flasksite import mail
 
+# Tallennetaan käyttäjän kuva tietokantaan ja annetaan sille
+# sattumanvarainen nimi luomalla hex-merkkirivi
+
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
@@ -12,13 +15,15 @@ def save_picture(form_picture):
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(
         current_app.root_path, 'static/profile_pics', picture_fn)
-    # Resize image with Pillow
+    # Pienennetään kuva Pillowin avulla kokoon 125x125px
     output_size = (125, 125)
     i = Image.open(form_picture)
     i.thumbnail(output_size)
 
     i.save(picture_path)
     return picture_fn
+
+# Lähetetään yksinkertainen salasanan uusimisviesti Mail-moduulin avulla
 
 
 def send_reset_email(user):

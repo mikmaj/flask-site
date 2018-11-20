@@ -14,6 +14,9 @@ login_manager.login_message_category = 'info'
 
 mail = Mail()
 
+# Hyödynnetään application factory patternia ja luodaan app-olio funktiona. Helpottaa testausta yms.
+# http://flask.pocoo.org/docs/1.0/patterns/appfactories/
+
 
 def create_app(config_class=Config):
     app = Flask(__name__)

@@ -9,6 +9,9 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# Käyttäjän database-model. Yhteydessä Post-modeliin ja sisältää metodit
+# kirjautumis-tokenin hakuun ja varmistukseen
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -17,7 +20,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False,
                            default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
-    # One to many rel
+    # One-to-many-yhteys, backref toimii yhdistävänä tietona
     posts = db.relationship('Post', backref='author', lazy=True)
 
     def get_reset_token(self, expires_sec=1800):
@@ -35,6 +38,8 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+
+# Forum-postauksen model
 
 
 class Post(db.Model):
