@@ -9,10 +9,8 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# Käyttäjän database-model. Yhteydessä Post-modeliin ja sisältää metodit
-# kirjautumis-tokenin hakuun ja varmistukseen
 
-
+# Users database model
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
@@ -20,13 +18,15 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False,
                            default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
-    # One-to-many-yhteys, backref toimii yhdistävänä tietona
+    # One-to-many connection to Post, backref as the connecting data
     posts = db.relationship('Post', backref='author', lazy=True)
 
+    # The method to get the password reset token that's valid for 30 minutes
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
 
+    # A static method for verifying the reset token
     @staticmethod
     def verify_reset_token(token):
         s = Serializer(current_app.config['SECRET_KEY'])
@@ -39,9 +39,8 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
-# Forum-postauksen model
 
-
+# The database model for a blog post
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)

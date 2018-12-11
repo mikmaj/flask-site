@@ -14,7 +14,7 @@ login_manager.login_message_category = 'info'
 
 mail = Mail()
 
-# Hyödynnetään application factory patternia ja luodaan app-olio funktiona. Helpottaa testausta yms.
+# Follow the application factory pattern by setting up the application in a function.
 # http://flask.pocoo.org/docs/1.0/patterns/appfactories/
 
 

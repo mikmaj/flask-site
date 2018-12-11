@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+<!-- Extend the layout for all repeating HTML structures and wrap the User Posts content in a block -->
 {% block content %}
     <h1 class="mb-3">Posts by {{ user.username }} ({{ posts.total }})</h1>
     {% for post in posts.items %}
@@ -14,6 +15,9 @@
         </div>
     </article>
     {% endfor %}
+
+    <!-- Pagination -->
+
     {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
         {% if page_num %}
             {% if posts.page == page_num %}
